@@ -8,5 +8,6 @@ router.get("/", (req, res) => {
 
 router.post("/login", login);
 router.post("/register", register);
+router.post("/refresh-token", register);
 
 module.exports = router;
