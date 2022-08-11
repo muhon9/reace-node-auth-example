@@ -1,4 +1,4 @@
-const { register, login } = require("./controllers/auth.controller");
+const authController = require("./controllers/auth.controller");
 const { getUsers } = require("./controllers/user.controller");
 const { auth } = require("./middlewares/auth.middlewares");
 
@@ -8,9 +8,10 @@ router.get("/", (req, res) => {
   res.send("Get ROute");
 });
 
-router.post("/login", login);
-router.post("/register", register);
-router.post("/refresh-token", register);
+router.post("/register", authController.register);
+router.post("/login", authController.login);
+router.post("/logout", authController.logout);
+router.post("/refresh-token", authController.refreshTokens);
 router.get("/users", auth(), getUsers);
 
 module.exports = router;

@@ -2,9 +2,15 @@ const Token = require("../models/token.model");
 const jwt = require("jsonwebtoken");
 const config = require("../config/config");
 const moment = require("moment");
+const User = require("../models/user.model");
 
 const verifyToken = async (token, type) => {
   const payload = await jwt.verify(token, config.jwt.secret);
+  const user = await User.findById(payload.id);
+  if (!user) {
+    throw new Error("No user with this token");
+  }
+
   if (payload.type === type) {
     return payload;
   } else {
@@ -40,16 +46,14 @@ const generateAuthTokens = async (user) => {
     "minutes"
   );
 
-  const accessToken = generateToken(user._id, accessTokenExpires, "ACCESS");
-
+  const accessToken = generateToken(user.id, accessTokenExpires, "ACCESS");
   const refreshTokenExpires = moment().add(
     config.jwt.refreshExpirationDays,
     "days"
   );
 
-  const refreshToken = generateToken(user._id, refreshTokenExpires, "REFRESH");
-
-  await saveToken(refreshToken, user._id, refreshTokenExpires, "REFRESH");
+  const refreshToken = generateToken(user.id, refreshTokenExpires, "REFRESH");
+  await saveToken(refreshToken, user.id, refreshTokenExpires, "REFRESH");
   return {
     access: {
       token: accessToken,

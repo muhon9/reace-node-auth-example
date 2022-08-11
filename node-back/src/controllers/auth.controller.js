@@ -1,6 +1,6 @@
 const Token = require("../models/token.model");
 const User = require("../models/user.model");
-const { generateAuthTokens } = require("../services/token.service");
+const tokenService = require("../services/token.service");
 
 const register = async (req, res) => {
   try {
@@ -18,7 +18,7 @@ const login = async (req, res, next) => {
     if (!user || !(await user.isPasswordMatch(password))) {
       throw new Error("username or password wrong");
     } else {
-      const tokens = await generateAuthTokens(user);
+      const tokens = await tokenService.generateAuthTokens(user);
       delete user._id;
       res.send({ user: user, tokens });
     }
@@ -29,14 +29,51 @@ const login = async (req, res, next) => {
 };
 
 const logout = async (req, res, next) => {
-  //logout logics
+  try {
+    const { refreshToken } = req.body;
+
+    if (!refreshToken) {
+      throw new Error("No token found");
+    }
+
+    const refreshTokenDoc = await Token.findOne({
+      token: refreshToken,
+      type: "REFRESH",
+      blacklisted: false,
+    });
+
+    if (!refreshTokenDoc) {
+      throw new Error("Not found");
+    }
+    await refreshTokenDoc.remove();
+    res.status(200).send("Logout Successfull");
+  } catch (error) {
+    error.statusCode = 401;
+    next(error);
+  }
 };
 
-const refreshToken = async (req, res, next) => {
-  const tokens = Token.create({});
+const refreshTokens = async (req, res, next) => {
+  try {
+    const { refreshToken } = req.body;
+    if (!refreshToken) {
+      throw new Error("No token found");
+    }
+    const payload = await tokenService.verifyToken(refreshToken, "REFRESH");
+    const refreshTokenDoc = await Token.findOne({ token: refreshToken });
+    const tokens = await tokenService.generateAuthTokens(refreshTokenDoc?.user);
+    console.log("hello");
+    refreshTokenDoc.remove();
+    res.send(tokens);
+  } catch (error) {
+    error.statusCode = 401;
+    next(error);
+  }
 };
 
 module.exports = {
   register,
   login,
+  refreshTokens,
+  logout,
 };
