@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
+const toJSON = require("./plugins/toJSON.plugin");
 
 const userSchema = mongoose.Schema(
   {
@@ -18,10 +19,14 @@ const userSchema = mongoose.Schema(
     password: {
       type: String,
       required: true,
+      trim: true,
+      private: true,
     },
   },
   { timestamps: true }
 );
+
+userSchema.plugin(toJSON);
 
 userSchema.pre("save", async function (next) {
   const user = this;

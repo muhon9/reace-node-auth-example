@@ -1,6 +1,6 @@
 const Token = require("../models/token.model");
 const User = require("../models/user.model");
-const { generateAuthTokens } = require("../services.js/token.service");
+const { generateAuthTokens } = require("../services/token.service");
 
 const register = async (req, res) => {
   try {
@@ -19,7 +19,8 @@ const login = async (req, res, next) => {
       throw new Error("username or password wrong");
     } else {
       const tokens = await generateAuthTokens(user);
-      res.send(tokens);
+      delete user._id;
+      res.send({ user: user, tokens });
     }
   } catch (error) {
     error.statusCode = 401;

@@ -21,6 +21,7 @@ app.use((req, res, next) => {
 });
 
 app.use((err, req, res, nexxt) => {
+  // console.log(err);
   let { statusCode, message } = err;
   res.status(statusCode || 400).send(message || "An error occured");
 });
