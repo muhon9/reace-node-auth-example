@@ -1,0 +1,22 @@
+.navbar{
+    width: 100%;
+}
+
+.nav_list{
+    display: flex;
+    justify-content: space-between;
+    list-style: none;
+}
+
+a{
+    color: inherit;
+}
+
+.nav_item{
+    text-decoration: none;
+}
+
+.active_nav{
+    color: brown;
+    border-bottom:2px solid brown;
+}
