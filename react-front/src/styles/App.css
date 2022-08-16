@@ -49,12 +49,14 @@ button{
 }
 
 .error {
-  background-color: var(--dangerRed);
-  padding: 0.6rem 1.2rem;
-  margin-top: 10px;
+  color: red;
+  
   border-radius: 8px;
   display: flex;
   align-items: center;
+  justify-content: flex-end;
+  padding-right: 4px;
+  font-style: italic;
 }
 
 .column {

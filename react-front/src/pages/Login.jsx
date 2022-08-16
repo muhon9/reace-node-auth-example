@@ -4,10 +4,10 @@ import styles from '../styles/Login.module.css'
 
 
 const Login = () => {
-    const [email, setEmail] = useState("hello");
+    const [email, setEmail] = useState("");
     const [ password, setPassword] = useState("")
 
-
+    console.log("Node", import.meta.env.VITE_API_ROOT)
     function handleSubmit(e){
         e.preventDefault()
         prompt(email,password)
