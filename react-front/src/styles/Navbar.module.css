@@ -1,5 +1,5 @@
 .navbar{
-    width: 100%;
+    padding: 8px;
 }
 
 .nav_list{
@@ -9,12 +9,10 @@
 }
 
 a{
-    color: inherit;
-}
-
-.nav_item{
     text-decoration: none;
 }
+
+.nav_item{}
 
 .active_nav{
     color: brown;

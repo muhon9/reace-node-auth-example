@@ -26,8 +26,9 @@ body {
 
 a {
   text-decoration: none;
-  color: blue;
+  
 }
+
 
 h4 {
   color: #7c83a7;
@@ -35,6 +36,11 @@ h4 {
   border-bottom: 1px solid #e5e5e5;
   padding: 10px 0;
   margin-bottom: 10px;
+}
+
+button{
+  width: 100px;
+  padding: 4px 8px;
 }
 
 .info {
