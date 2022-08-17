@@ -2,7 +2,17 @@ const Token = require("../models/token.model");
 const User = require("../models/user.model");
 const tokenService = require("../services/token.service");
 
-const register = async (req, res) => {
+const register = async (req, res, next) => {
+  
+  const alreadyExist = await User.findOne({email:req?.body.email})
+  console.log(alreadyExist);
+    if (alreadyExist) {
+      res.status(400).send({
+        message: "user already exist"
+      })
+      return;
+    }
+
   try {
     const user = await User.create(req.body);
     res.send(user);
