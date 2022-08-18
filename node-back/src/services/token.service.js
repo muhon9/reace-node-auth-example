@@ -1,21 +1,20 @@
-const Token = require("../models/token.model");
-const jwt = require("jsonwebtoken");
-const config = require("../config/config");
-const moment = require("moment");
-const User = require("../models/user.model");
+const Token = require('../models/token.model');
+const jwt = require('jsonwebtoken');
+const config = require('../config/config');
+const moment = require('moment');
+const User = require('../models/user.model');
 
 const verifyToken = async (token, type) => {
   const payload = await jwt.verify(token, config.jwt.secret);
   const user = await User.findById(payload.id);
   if (!user) {
-    throw new Error("No user with this token");
+    throw new Error('No user with this token');
   }
 
   if (payload.type === type) {
     return payload;
-  } else {
-    throw new Error("Invalid token type");
   }
+  throw new Error('Invalid token type');
 };
 
 const generateToken = (userId, expires, type, secret = config.jwt.secret) => {
@@ -43,17 +42,17 @@ const saveToken = async (token, userId, expires, type, blacklisted = false) => {
 const generateAuthTokens = async (user) => {
   const accessTokenExpires = moment().add(
     config.jwt.accessExpirationMinutes,
-    "minutes"
+    'minutes'
   );
 
-  const accessToken = generateToken(user.id, accessTokenExpires, "ACCESS");
+  const accessToken = generateToken(user.id, accessTokenExpires, 'ACCESS');
   const refreshTokenExpires = moment().add(
     config.jwt.refreshExpirationDays,
-    "days"
+    'days'
   );
 
-  const refreshToken = generateToken(user.id, refreshTokenExpires, "REFRESH");
-  await saveToken(refreshToken, user.id, refreshTokenExpires, "REFRESH");
+  const refreshToken = generateToken(user.id, refreshTokenExpires, 'REFRESH');
+  await saveToken(refreshToken, user.id, refreshTokenExpires, 'REFRESH');
   return {
     access: {
       token: accessToken,

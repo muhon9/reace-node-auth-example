@@ -1,6 +1,6 @@
-const mongoose = require("mongoose");
-const bcrypt = require("bcryptjs");
-const toJSON = require("./plugins/toJSON.plugin");
+const mongoose = require('mongoose');
+const bcrypt = require('bcryptjs');
+const toJSON = require('./plugins/toJSON.plugin');
 
 const userSchema = mongoose.Schema(
   {
@@ -13,7 +13,7 @@ const userSchema = mongoose.Schema(
       type: String,
       required: true,
       trim: true,
-      unique: ["true", "email must be unique"],
+      unique: ['true', 'email must be unique'],
       lowercase: true,
     },
     password: {
@@ -28,9 +28,9 @@ const userSchema = mongoose.Schema(
 
 userSchema.plugin(toJSON);
 
-userSchema.pre("save", async function (next) {
+userSchema.pre('save', async function (next) {
   const user = this;
-  if (user.isModified("password")) {
+  if (user.isModified('password')) {
     user.password = await bcrypt.hash(user.password, 8);
   }
   next();
@@ -41,6 +41,6 @@ userSchema.methods.isPasswordMatch = async function (password) {
   return bcrypt.compare(password, user.password);
 };
 
-const User = mongoose.model("User", userSchema);
+const User = mongoose.model('User', userSchema);
 
 module.exports = User;
