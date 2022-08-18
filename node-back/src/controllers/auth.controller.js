@@ -2,16 +2,15 @@ const Token = require("../models/token.model");
 const User = require("../models/user.model");
 const tokenService = require("../services/token.service");
 
-const register = async (req, res, next) => {
-  
-  const alreadyExist = await User.findOne({email:req?.body.email})
+const register = async (req, res) => {
+  const alreadyExist = await User.findOne({ email: req?.body.email });
   console.log(alreadyExist);
-    if (alreadyExist) {
-      res.status(400).send({
-        message: "user already exist"
-      })
-      return;
-    }
+  if (alreadyExist) {
+    res.status(400).send({
+      message: "user already exist",
+    });
+    return;
+  }
 
   try {
     const user = await User.create(req.body);
@@ -69,6 +68,7 @@ const refreshTokens = async (req, res, next) => {
     if (!refreshToken) {
       throw new Error("No token found");
     }
+
     const payload = await tokenService.verifyToken(refreshToken, "REFRESH");
     const refreshTokenDoc = await Token.findOne({ token: refreshToken });
     const tokens = await tokenService.generateAuthTokens(refreshTokenDoc?.user);

@@ -1,9 +1,0 @@
-{
-    "editor.formatOnSave": true,
-    "editor.codeActionsOnSave": {
-      "source.fixAll.eslint": true,
-      "source.fixAll.tslint": true,
-    },
-    "javascript.validate.enable": true,
-    "typescript.validate.enable": false
-  }
