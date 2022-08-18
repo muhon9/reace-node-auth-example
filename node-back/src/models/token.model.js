@@ -1,5 +1,5 @@
-const mongoose = require("mongoose");
-const User = require("./user.model");
+const mongoose = require('mongoose')
+const User = require('./user.model')
 
 const tokenSchema = mongoose.Schema(
   {
@@ -10,15 +10,15 @@ const tokenSchema = mongoose.Schema(
     },
     user: {
       type: mongoose.SchemaTypes.ObjectId,
-      ref: "User",
+      ref: 'User',
       required: true,
     },
     type: {
       type: String,
-      enum: ["REFRESH"],
+      enum: ['REFRESH'],
       required: true,
     },
-    expires: { 
+    expires: {
       type: Date,
       required: true,
     },
@@ -28,8 +28,8 @@ const tokenSchema = mongoose.Schema(
     },
   },
   { timestamps: true }
-);
+)
 
-const Token = mongoose.model("Token", tokenSchema);
+const Token = mongoose.model('Token', tokenSchema)
 
-module.exports = Token;
+module.exports = Token

@@ -1,5 +1,5 @@
-@import url("https://fonts.googleapis.com/css2?family=Material+Icons+Outlined");
-@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Material+Icons+Outlined');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap');
 
 :root {
   --bodyBackground: #f2f4f8;
@@ -15,7 +15,7 @@
   padding: 0;
   box-sizing: border-box;
   color: var(--fontPrimary);
-  font-family: "Montserrat", sans-serif;
+  font-family: 'Montserrat', sans-serif;
 }
 
 body {
@@ -26,9 +26,7 @@ body {
 
 a {
   text-decoration: none;
-  
 }
-
 
 h4 {
   color: #7c83a7;
@@ -38,7 +36,7 @@ h4 {
   margin-bottom: 10px;
 }
 
-button{
+button {
   width: 100px;
   padding: 4px 8px;
 }
@@ -50,7 +48,7 @@ button{
 
 .error {
   color: red;
-  
+
   border-radius: 8px;
   display: flex;
   align-items: center;
@@ -70,6 +68,3 @@ button{
     grid-template-columns: 1fr;
   }
 }
-
-
-

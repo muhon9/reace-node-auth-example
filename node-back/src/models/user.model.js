@@ -1,6 +1,6 @@
-const mongoose = require('mongoose');
-const bcrypt = require('bcryptjs');
-const toJSON = require('./plugins/toJSON.plugin');
+const mongoose = require('mongoose')
+const bcrypt = require('bcryptjs')
+const toJSON = require('./plugins/toJSON.plugin')
 
 const userSchema = mongoose.Schema(
   {
@@ -24,23 +24,23 @@ const userSchema = mongoose.Schema(
     },
   },
   { timestamps: true }
-);
+)
 
-userSchema.plugin(toJSON);
+userSchema.plugin(toJSON)
 
 userSchema.pre('save', async function (next) {
-  const user = this;
+  const user = this
   if (user.isModified('password')) {
-    user.password = await bcrypt.hash(user.password, 8);
+    user.password = await bcrypt.hash(user.password, 8)
   }
-  next();
-});
+  next()
+})
 
 userSchema.methods.isPasswordMatch = async function (password) {
-  let user = this;
-  return bcrypt.compare(password, user.password);
-};
+  const user = this
+  return bcrypt.compare(password, user.password)
+}
 
-const User = mongoose.model('User', userSchema);
+const User = mongoose.model('User', userSchema)
 
-module.exports = User;
+module.exports = User

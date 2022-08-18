@@ -6,10 +6,13 @@
   "scripts": {
     "dev": "vite --host",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "format": "prettier --write \"./**/*.{js,jsx,ts,tsx,css,scss,md}\"",
+    "eslint": "eslint src/**/*.{js,jsx}"
   },
   "dependencies": {
     "axios": "^0.27.2",
+    "prettier": "^2.7.1",
     "prop-types": "^15.8.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

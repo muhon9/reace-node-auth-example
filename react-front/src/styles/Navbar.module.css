@@ -1,20 +1,21 @@
-.navbar{
-    padding: 8px;
+.navbar {
+  padding: 8px;
 }
 
-.nav_list{
-    display: flex;
-    justify-content: space-between;
-    list-style: none;
+.nav_list {
+  display: flex;
+  justify-content: space-between;
+  list-style: none;
 }
 
-a{
-    text-decoration: none;
+a {
+  text-decoration: none;
 }
 
-.nav_item{}
+.nav_item {
+}
 
-.active_nav{
-    color: brown;
-    border-bottom:2px solid brown;
+.active_nav {
+  color: brown;
+  border-bottom: 2px solid brown;
 }

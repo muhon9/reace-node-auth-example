@@ -9,7 +9,9 @@ function Navbar() {
         <li className={styles.nav_item}>
           <NavLink
             to="/"
-            className={({ isActive }) => (isActive ? `${styles.active_nav}` : undefined)}
+            className={({ isActive }) =>
+              isActive ? `${styles.active_nav}` : undefined
+            }
           >
             Home
           </NavLink>
@@ -17,7 +19,9 @@ function Navbar() {
         <li className={styles.nav_item}>
           <NavLink
             to="/login"
-            className={({ isActive }) => (isActive ? `${styles.active_nav}` : undefined)}
+            className={({ isActive }) =>
+              isActive ? `${styles.active_nav}` : undefined
+            }
           >
             Login
           </NavLink>
@@ -25,7 +29,9 @@ function Navbar() {
         <li className={styles.nav_item}>
           <NavLink
             to="/registration"
-            className={({ isActive }) => (isActive ? `${styles.active_nav}` : undefined)}
+            className={({ isActive }) =>
+              isActive ? `${styles.active_nav}` : undefined
+            }
           >
             Sign Up
           </NavLink>

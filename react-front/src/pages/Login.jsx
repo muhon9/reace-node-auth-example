@@ -15,10 +15,11 @@ function Login() {
   console.log('Node', import.meta.env.VITE_API_ROOT);
   function handleSubmit(e) {
     e.preventDefault();
-    axios.post(`${import.meta.env.VITE_API_ROOT}/login`, {
-      email,
-      password,
-    })
+    axios
+      .post(`${import.meta.env.VITE_API_ROOT}/login`, {
+        email,
+        password,
+      })
       .then((response) => {
         console.log('response', response);
         setError('');
@@ -37,7 +38,6 @@ function Login() {
           <div className={styles.form_field}>
             <label htmlFor="email">
               Email:
-
               <input
                 id="email"
                 type="text"

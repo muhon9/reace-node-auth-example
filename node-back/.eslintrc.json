@@ -4,14 +4,13 @@
     "commonjs": true,
     "es2021": true
   },
-  "extends": ["airbnb", "prettier", "plugins:node/recommended"],
-  "plugins": ["prettier"],
-  "overrides": [],
+  "extends": ["airbnb-base", "prettier"],
   "parserOptions": {
     "ecmaVersion": "latest"
   },
   "rules": {
-    "prettier/prettier": "error",
-    "no-unused-vars": "warn"
+    "no-unused-vars": "warn",
+    "no-underscore-dangle": "off",
+    "func-names": "off"
   }
 }
