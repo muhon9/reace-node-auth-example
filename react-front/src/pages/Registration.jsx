@@ -30,7 +30,7 @@ function Registration() {
       })
       .catch((err) => {
         console.log('Error', err);
-        setError(error.response.data?.message);
+        setError(err.response.data?.message);
       });
   }
 
