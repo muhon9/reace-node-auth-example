@@ -7,7 +7,9 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "client": "cd react-front && npm run dev",
     "server": "cd node-back && npm run dev",
-    "dev": "concurrently \"npm run server\" \"npm run client\""
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "format": "prettier --write \"./**/*.{js,jsx,ts,tsx,css,scss,md}\"",
+    "eslint": "eslint src/**/*.{js,jsx}"
   },
   "keywords": [],
   "author": "",
@@ -17,6 +19,7 @@
   },
   "dependencies": {
     "@types/mongoose": "^5.11.97",
-    "moment": "^2.29.4"
+    "moment": "^2.29.4",
+    "prettier": "^2.7.1"
   }
 }
