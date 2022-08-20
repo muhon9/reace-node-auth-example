@@ -9,8 +9,10 @@ function Login() {
   const [password, setPassword] = useState('');
 
   const { login, loading, error, user, accessToken } = useContext(AuthContext);
+  const authContext = useContext(AuthContext);
 
   useEffect(() => {
+    console.log('Authcontext', authContext);
     console.log('Triggered');
     if (user) {
       <Navigate to="/" />;
