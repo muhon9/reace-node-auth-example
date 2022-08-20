@@ -2,12 +2,15 @@ import axios from 'axios';
 import { useContext } from 'react';
 // eslint-disable-next-line import/no-cycle
 import { AuthContext } from '../context/AuthContext';
+import { getStoredTokens } from './authToken';
 
 const defaults = {
   baseUrl: 'http://localhost:3000/api',
   headers: () => ({
     'Content-Type': 'application/json',
-    Authorization: `Bearer jalfjej`,
+    Authorization: getStoredTokens()
+      ? `Bearer ${getStoredTokens().access.token}`
+      : undefined,
   }),
   error: {
     code: 'INTERNAL_ERROR',
@@ -22,7 +25,6 @@ const api = (method, url, variables) =>
   new Promise((resolve, reject) => {
     axios({
       url: `${defaults.baseUrl}${url}`,
-      // url: 'http://localhost:3000/api/users',
       method,
       headers: defaults.headers(),
       params: method === 'get' ? variables : undefined,
@@ -33,7 +35,7 @@ const api = (method, url, variables) =>
         resolve(response.data);
       },
       (error) => {
-        console.log('Form api error', error.response);
+        console.log('Form api error', error);
         if (error.response) {
           if (error.response.status === 401) {
             console.log('Invalid token');

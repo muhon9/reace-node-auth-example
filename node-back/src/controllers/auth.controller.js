@@ -33,7 +33,12 @@ const login = async (req, res, next) => {
       res.send({ user, tokens })
     }
   } catch (error) {
-    error.statusCode = 401
+    console.log(error.message)
+    if (error.message === 'username or password wrong') {
+      error.statusCode = 403
+    } else {
+      error.statusCode = 401
+    }
     next(error)
   }
 }

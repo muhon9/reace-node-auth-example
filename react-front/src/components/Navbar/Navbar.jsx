@@ -1,8 +1,16 @@
-import React from 'react';
-import { NavLink } from 'react-router-dom';
+import React, { useContext } from 'react';
+import { NavLink, useNavigate } from 'react-router-dom';
+import { AuthContext } from '../../context/AuthContext';
 import styles from '../../styles/Navbar.module.css';
 
 function Navbar() {
+  const { logout } = useContext(AuthContext);
+  const navigate = useNavigate();
+  function handleLogout() {
+    logout();
+    navigate('/login');
+  }
+
   return (
     <div className={styles.navbar}>
       <ul className={styles.nav_list}>
@@ -35,6 +43,11 @@ function Navbar() {
           >
             Sign Up
           </NavLink>
+        </li>
+        <li className={styles.nav_item}>
+          <button type="button" onClick={handleLogout}>
+            Logout
+          </button>
         </li>
       </ul>
     </div>

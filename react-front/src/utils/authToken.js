@@ -1,13 +1,13 @@
-export const getStoredAccessToken = () => localStorage.getItem('accessToken');
+export const getStoredTokens = () => JSON.parse(localStorage.getItem('tokens'));
 
-export const storeAccessToken = (accessToken) =>
-  localStorage.setItem('accessToken', accessToken);
+export const storeToken = (tokens) =>
+  localStorage.setItem('tokens', JSON.stringify(tokens));
 
-export const removeAccessToken = () => localStorage.removeItem('accessToken');
+export const removeToken = () => localStorage.removeItem('tokens');
 
-export const getStoredRefreshToken = () => localStorage.getItem('refreshToken');
+export const getStoredUser = () => JSON.parse(localStorage.getItem('user'));
 
-export const storeRefreshToken = (refreshToken) =>
-  localStorage.setItem('refreshToken', refreshToken);
+export const storeUser = (user) =>
+  localStorage.setItem('user', JSON.stringify(user));
 
-export const removeRefreshToken = () => localStorage.removeItem('refreshToken');
+export const removeUser = () => localStorage.removeItem('user');

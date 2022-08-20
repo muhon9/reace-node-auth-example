@@ -1,56 +1,66 @@
 import { useState, createContext } from 'react';
+import { useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 // eslint-disable-next-line import/no-cycle
 import api from '../utils/api';
+import {
+  getStoredTokens,
+  getStoredUser,
+  removeToken,
+  removeUser,
+  storeToken,
+  storeUser,
+} from '../utils/authToken';
 
 export const AuthContext = createContext({});
 
 export function AuthProvider(props) {
   const [user, setUser] = useState(undefined);
-  const [accessToken, setAccessToken] = useState(undefined);
-  const [refreshToken, setRefreshToken] = useState(undefined);
+  const [tokens, setTokens] = useState(undefined);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
-  async function login(email, password) {
-    setLoading(true);
-
-    try {
-      const data = await api.post('/login', { email, password });
-    } catch (err) {
-      console.log('Data', err);
+  if (!user || !tokens) {
+    if (getStoredTokens() && getStoredUser()) {
+      setUser(getStoredUser());
+      setTokens(getStoredTokens());
     }
-    // axios
-    //   .post(`${import.meta.env.VITE_API_ROOT}/login`, {
-    //     email,
-    //     password,
-    //   })
-    //   .then((res) => {
-    //     console.log(res.data);
-    //     setUser(res.data.user);
-    //     setAccessToken(res.data.tokens.access.token);
-    //     setRefreshToken(res.data.tokens.refresh.token);
-    //     setLoading(false);
-    //     setError('');
-    //     localStorage.setItem(
-    //       'token',
-    //       JSON.stringify(res.data.tokens.refresh.token)
-    //     );
-    //     (err) => {
-    //       console.log(err);
-    //     };
-    //   });
   }
 
-  function logout() {}
+  async function login(email, password) {
+    console.log('Email', email);
+    setLoading(true);
+    api
+      .post('/login', { email, password })
+      .then((data) => {
+        console.log(data);
+        setUser(data.user);
+        setTokens(data.tokens);
+        setLoading(false);
+        setError('');
+        storeToken(data.tokens);
+        storeUser(data.user);
+      })
+      .catch((err) => {
+        setError(err);
+        console.log('err');
+        setLoading(false);
+      });
+  }
+
+  function logout() {
+    removeToken();
+    removeUser();
+    setUser(undefined);
+    setTokens(undefined);
+  }
 
   // eslint-disable-next-line react/jsx-no-constructed-context-values
   const value = {
     login,
     logout,
     user,
-    accessToken,
-    refreshToken,
+    tokens,
     loading,
     error,
   };

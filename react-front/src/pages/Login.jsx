@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from 'react';
-import { Link, Navigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import styles from '../styles/Login.module.css';
 import { AuthContext } from '../context/AuthContext';
@@ -8,18 +8,33 @@ function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const { login, loading, error, user, accessToken } = useContext(AuthContext);
+  const { login, loading, error, user, tokens } = useContext(AuthContext);
   const authContext = useContext(AuthContext);
+  const location = useLocation();
+  const navigate = useNavigate();
 
-  function handleSubmit(e) {
+  useEffect(() => {
+    if (user) {
+      navigate('/');
+    }
+  }, []);
+
+  async function handleSubmit(e) {
     e.preventDefault();
-    login(email, password);
+    await login(email, password);
+    if (user) {
+      if (location.state?.from) {
+        console.log('here is a from', location.state.from.pathname);
+        navigate('/test');
+      } else {
+        navigate('/registration');
+      }
+    }
   }
 
   return (
     <div>
-      {user && JSON.stringify(accessToken)}
-      {user && <Navigate to="/" />}
+      {loading && <div>Loading....</div>}
       {!user && (
         <>
           <form className={styles.login_form} onSubmit={handleSubmit}>

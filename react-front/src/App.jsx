@@ -1,7 +1,9 @@
 import { useState } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Navbar from './components/Navbar/Navbar';
+import PrivateRoute from './components/PrivateRoute';
 import { AuthProvider } from './context/AuthContext';
+import Hidden from './pages/Hidden';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import Registration from './pages/Registration';
@@ -16,7 +18,22 @@ function App() {
         <AuthProvider>
           <Navbar />
           <Routes>
-            <Route path="/" element={<Home />} />
+            <Route
+              path="/"
+              element={
+                <PrivateRoute>
+                  <Home />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/hidden"
+              element={
+                <PrivateRoute>
+                  <Hidden />
+                </PrivateRoute>
+              }
+            />
             <Route path="/login" element={<Login />} />
             <Route path="/registration" element={<Registration />} />
           </Routes>
