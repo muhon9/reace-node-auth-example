@@ -20,7 +20,7 @@ app.use((req, res) => {
   res.status(404).send('Not found')
 })
 
-app.use((err, req, res) => {
+app.use((err, req, res, next) => {
   // console.log(err);
   const { statusCode, message } = err
   res.status(statusCode || 400).send(message || 'An error occured')
