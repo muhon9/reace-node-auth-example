@@ -14,8 +14,12 @@ export function AuthProvider(props) {
 
   async function login(email, password) {
     setLoading(true);
-    const data = await api.post('/login', { email, password });
-    console.log('Data', data);
+
+    try {
+      const data = await api.post('/login', { email, password });
+    } catch (err) {
+      console.log('Data', err);
+    }
     // axios
     //   .post(`${import.meta.env.VITE_API_ROOT}/login`, {
     //     email,

@@ -11,14 +11,6 @@ function Login() {
   const { login, loading, error, user, accessToken } = useContext(AuthContext);
   const authContext = useContext(AuthContext);
 
-  useEffect(() => {
-    console.log('Authcontext', authContext);
-    console.log('Triggered');
-    if (user) {
-      <Navigate to="/" />;
-    }
-  }, [user]);
-
   function handleSubmit(e) {
     e.preventDefault();
     login(email, password);

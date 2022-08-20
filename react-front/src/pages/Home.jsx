@@ -9,7 +9,7 @@ function Home() {
     api.get('/users').then((data) => {
       console.log(data);
     });
-  }, []);
+  }, [user]);
 
   return <div>Home Page</div>;
 }
