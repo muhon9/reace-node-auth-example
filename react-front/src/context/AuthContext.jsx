@@ -71,6 +71,8 @@ export function AuthProvider(props) {
     login,
     logout,
     user,
+    setUser,
+    setTokens,
     tokens,
     loading,
     error,
