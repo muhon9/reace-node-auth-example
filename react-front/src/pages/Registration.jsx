@@ -1,20 +1,31 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect, useContext } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import styles from '../styles/Login.module.css';
+import { AuthContext } from '../context/AuthContext';
 
 function Registration() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [error, setError] = useState('');
+  const [localError, setLocalError] = useState('');
+
+  const { logout, loading, error, user } = useContext(AuthContext);
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (user) {
+      navigate('/');
+    }
+  }, []);
 
   function handleSubmit(e) {
     e.preventDefault();
 
     if (password !== confirmPassword) {
-      setError("Confirm Password Doesn't match");
+      setLocalError("Confirm Password Doesn't match");
       return;
     }
 

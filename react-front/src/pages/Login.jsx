@@ -19,17 +19,9 @@ function Login() {
     }
   }, []);
 
-  async function handleSubmit(e) {
+  function handleSubmit(e) {
     e.preventDefault();
-    await login(email, password);
-    if (user) {
-      if (location.state?.from) {
-        console.log('here is a from', location.state.from.pathname);
-        navigate('/test');
-      } else {
-        navigate('/registration');
-      }
-    }
+    login(email, password);
   }
 
   return (

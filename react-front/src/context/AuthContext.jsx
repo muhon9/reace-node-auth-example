@@ -1,5 +1,5 @@
 import { useState, createContext } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
 // eslint-disable-next-line import/no-cycle
 import api from '../utils/api';
@@ -19,6 +19,8 @@ export function AuthProvider(props) {
   const [tokens, setTokens] = useState(undefined);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const navigate = useNavigate();
+  const location = useLocation();
 
   if (!user || !tokens) {
     if (getStoredTokens() && getStoredUser()) {
@@ -40,6 +42,11 @@ export function AuthProvider(props) {
         setError('');
         storeToken(data.tokens);
         storeUser(data.user);
+        if (location.state?.from) {
+          navigate(location.state.from);
+        } else {
+          navigate('/');
+        }
       })
       .catch((err) => {
         setError(err);
@@ -53,6 +60,10 @@ export function AuthProvider(props) {
     removeUser();
     setUser(undefined);
     setTokens(undefined);
+  }
+
+  function seterror(err) {
+    setError(err);
   }
 
   // eslint-disable-next-line react/jsx-no-constructed-context-values
