@@ -5,7 +5,7 @@ import { AuthContext } from '../context/AuthContext';
 import { getStoredTokens } from './authToken';
 
 const defaults = {
-  baseUrl: 'http://localhost:3000/api',
+  baseUrl: `${import.meta.env.VITE_API_ROOT}`,
   headers: () => ({
     'Content-Type': 'application/json',
     Authorization: getStoredTokens()

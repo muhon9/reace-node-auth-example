@@ -11,7 +11,7 @@ function Registration() {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [localError, setLocalError] = useState('');
 
-  const { logout, loading, error, user } = useContext(AuthContext);
+  const { logout, loading, error, user, setError } = useContext(AuthContext);
 
   const navigate = useNavigate();
 
@@ -30,7 +30,7 @@ function Registration() {
     }
 
     axios
-      .post(`${import.meta.env.VITE_API_ROOT}/register`, {
+      .post(`${import.meta.env.VITE_API_ROOT}/auth/register`, {
         name,
         email,
         password,

@@ -3,15 +3,15 @@ import { AuthContext } from '../context/AuthContext';
 import UseAxios from '../hooks/useAxios';
 
 function Home() {
-  const { login, loading, error, user } = useContext(AuthContext);
+  const { login, loading, error, user, tokens } = useContext(AuthContext);
   const [users, setUsers] = useState([]);
   const api = UseAxios();
 
   useEffect(() => {
-    api.get('/users').then((res) => {
+    api.get(`/users/${user.id}`).then((res) => {
       setUsers(res.data);
     });
-  }, []);
+  }, [user, tokens]);
 
   return (
     <div>
