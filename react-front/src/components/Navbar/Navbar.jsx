@@ -4,7 +4,7 @@ import { AuthContext } from '../../context/AuthContext';
 import styles from '../../styles/Navbar.module.css';
 
 function Navbar() {
-  const { logout } = useContext(AuthContext);
+  const { logout, authTokens } = useContext(AuthContext);
   const navigate = useNavigate();
   function handleLogout() {
     logout();
@@ -23,31 +23,37 @@ function Navbar() {
             Home
           </NavLink>
         </li>
-        <li className={styles.nav_item}>
-          <NavLink
-            to="/login"
-            className={({ isActive }) =>
-              isActive ? `${styles.active_nav}` : undefined
-            }
-          >
-            Login
-          </NavLink>
-        </li>
-        <li className={styles.nav_item}>
-          <NavLink
-            to="/registration"
-            className={({ isActive }) =>
-              isActive ? `${styles.active_nav}` : undefined
-            }
-          >
-            Sign Up
-          </NavLink>
-        </li>
-        <li className={styles.nav_item}>
-          <button type="button" onClick={handleLogout}>
-            Logout
-          </button>
-        </li>
+        {!authTokens && (
+          <>
+            <li className={styles.nav_item}>
+              <NavLink
+                to="/login"
+                className={({ isActive }) =>
+                  isActive ? `${styles.active_nav}` : undefined
+                }
+              >
+                Login
+              </NavLink>
+            </li>
+            <li className={styles.nav_item}>
+              <NavLink
+                to="/registration"
+                className={({ isActive }) =>
+                  isActive ? `${styles.active_nav}` : undefined
+                }
+              >
+                Sign Up
+              </NavLink>
+            </li>
+          </>
+        )}
+        {authTokens && (
+          <li className={styles.nav_item}>
+            <button type="button" onClick={handleLogout}>
+              Logout
+            </button>
+          </li>
+        )}
       </ul>
     </div>
   );

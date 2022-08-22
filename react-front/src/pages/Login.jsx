@@ -8,12 +8,14 @@ function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const { login, loading, error, user, tokens } = useContext(AuthContext);
+  const { login, loading, error, setError, user, authTokens } =
+    useContext(AuthContext);
   const authContext = useContext(AuthContext);
   const location = useLocation();
   const navigate = useNavigate();
 
   useEffect(() => {
+    setError('');
     if (user) {
       navigate('/');
     }

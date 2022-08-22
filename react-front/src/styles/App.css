@@ -16,6 +16,7 @@
   box-sizing: border-box;
   color: var(--fontPrimary);
   font-family: 'Montserrat', sans-serif;
+  font-size: 20px;
 }
 
 body {

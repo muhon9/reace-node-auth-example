@@ -1,86 +1,67 @@
-import { useState, createContext } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
-import PropTypes from 'prop-types';
-// eslint-disable-next-line import/no-cycle
-
-import {
-  getStoredTokens,
-  getStoredUser,
-  removeToken,
-  removeUser,
-  storeToken,
-  storeUser,
-} from '../utils/authToken';
-// eslint-disable-next-line import/no-cycle
-import UseAxios from '../hooks/useAxios';
+import { useState, createContext, useEffect } from 'react';
+import { useNavigate, useLocation, Navigate } from 'react-router-dom';
+import axios from 'axios';
 
 export const AuthContext = createContext({});
 
 export function AuthProvider(props) {
-  const [user, setUser] = useState(
-    getStoredUser() ? getStoredUser() : undefined
-  );
-  const [tokens, setTokens] = useState(
-    getStoredTokens() ? getStoredTokens() : undefined
-  );
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState('');
   const navigate = useNavigate();
-  const location = useLocation();
-  const api = UseAxios();
-
-  if (!user || !tokens) {
-    if (getStoredTokens() && getStoredUser()) {
-      setUser(getStoredUser());
-      setTokens(getStoredTokens());
-    }
-  }
+  const [authTokens, setAuthTokens] = useState(() =>
+    localStorage.getItem('authTokens')
+      ? JSON.parse(localStorage.getItem('authTokens'))
+      : null
+  );
+  const [user, setUser] = useState(() =>
+    localStorage.getItem('user')
+      ? JSON.parse(localStorage.getItem('user'))
+      : null
+  );
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
 
   async function login(email, password) {
-    console.log('Email', email);
-    setLoading(true);
-    api
-      .post('/auth/login', { email, password })
-      .then((data) => {
-        setUser(data.user);
-        setTokens(data.tokens);
-        setLoading(false);
-        setError('');
-        storeToken(data.tokens);
-        storeUser(data.user);
-        if (location.state?.from) {
-          navigate(location.state.from);
-        } else {
-          navigate('/');
-        }
+    await axios
+      .post(`${import.meta.env.VITE_API_ROOT}/auth/login`, {
+        email,
+        password,
+      })
+      .then((res) => {
+        console.log();
+        setAuthTokens(res.data.tokens);
+        setUser(res.data.user);
+        localStorage.setItem('authTokens', JSON.stringify(res.data.tokens));
+        localStorage.setItem('user', JSON.stringify(res.data.user));
+        navigate('/');
       })
       .catch((err) => {
-        setError(err);
-        console.log('err');
-        setLoading(false);
+        console.log(err);
+        setError(err.response.data.message);
       });
   }
 
   async function logout() {
-    console.log('logout');
-    removeToken();
-    removeUser();
-    setUser(undefined);
-    setTokens(undefined);
-    navigate('/login');
-    await api.post('/auth/logout', {
-      refreshToken: tokens.refresh.token,
+    localStorage.removeItem('authTokens');
+    localStorage.removeItem('user');
+    setUser(null);
+    setAuthTokens(null);
+    await axios.post(`${import.meta.env.VITE_API_ROOT}/auth/logout`, {
+      refreshToken: authTokens?.refresh.token,
     });
   }
+
+  useEffect(() => {
+    setLoading(false);
+    console.log(authTokens);
+  }, [authTokens, loading]);
 
   // eslint-disable-next-line react/jsx-no-constructed-context-values
   const value = {
     login,
     logout,
+    authTokens,
     user,
+    setAuthTokens,
     setUser,
-    setTokens,
-    tokens,
     loading,
     error,
     setError,

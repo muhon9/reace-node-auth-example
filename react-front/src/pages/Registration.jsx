@@ -11,11 +11,12 @@ function Registration() {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [localError, setLocalError] = useState('');
 
-  const { logout, loading, error, user, setError } = useContext(AuthContext);
+  const { logout, loading, error, setError, user } = useContext(AuthContext);
 
   const navigate = useNavigate();
 
   useEffect(() => {
+    setError('');
     if (user) {
       navigate('/');
     }

@@ -18,14 +18,7 @@ function App() {
         <AuthProvider>
           <Navbar />
           <Routes>
-            <Route
-              path="/"
-              element={
-                <PrivateRoute>
-                  <Home />
-                </PrivateRoute>
-              }
-            />
+            <Route path="/" element={<Home />} />
             <Route
               path="/hidden"
               element={
