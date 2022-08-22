@@ -9,12 +9,12 @@ export function AuthProvider(props) {
   const [authTokens, setAuthTokens] = useState(() =>
     localStorage.getItem('authTokens')
       ? JSON.parse(localStorage.getItem('authTokens'))
-      : null
+      : undefined
   );
   const [user, setUser] = useState(() =>
     localStorage.getItem('user')
       ? JSON.parse(localStorage.getItem('user'))
-      : null
+      : undefined
   );
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
@@ -22,6 +22,27 @@ export function AuthProvider(props) {
   async function login(email, password) {
     await axios
       .post(`${import.meta.env.VITE_API_ROOT}/auth/login`, {
+        email,
+        password,
+      })
+      .then((res) => {
+        console.log();
+        setAuthTokens(res.data.tokens);
+        setUser(res.data.user);
+        localStorage.setItem('authTokens', JSON.stringify(res.data.tokens));
+        localStorage.setItem('user', JSON.stringify(res.data.user));
+        navigate('/');
+      })
+      .catch((err) => {
+        console.log(err);
+        setError(err.response.data.message);
+      });
+  }
+
+  async function registration(name, email, password) {
+    await axios
+      .post(`${import.meta.env.VITE_API_ROOT}/auth/register`, {
+        name,
         email,
         password,
       })
@@ -65,6 +86,7 @@ export function AuthProvider(props) {
     loading,
     error,
     setError,
+    registration,
   };
 
   return (

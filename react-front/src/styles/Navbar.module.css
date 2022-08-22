@@ -1,21 +1,29 @@
 .navbar {
+  display: grid;
+  align-items: center;
   padding: 8px;
+  height: 4rem;
+  border-bottom: 2px solid brown;
 }
 
 .nav_list {
   display: flex;
   justify-content: space-between;
   list-style: none;
+  font-size: 1.3rem;
+  font-weight: 500;
 }
 
-a {
+.nav_item button {
+  padding: 4px 12px;
+  font-size: 1.1rem;
+  cursor: pointer;
+}
+
+.nav_list a {
   text-decoration: none;
-}
-
-.nav_item {
 }
 
 .active_nav {
   color: brown;
-  border-bottom: 2px solid brown;
 }

@@ -48,11 +48,23 @@ function Navbar() {
           </>
         )}
         {authTokens && (
-          <li className={styles.nav_item}>
-            <button type="button" onClick={handleLogout}>
-              Logout
-            </button>
-          </li>
+          <>
+            <li className={styles.nav_item}>
+              <NavLink
+                to="/hidden"
+                className={({ isActive }) =>
+                  isActive ? `${styles.active_nav}` : undefined
+                }
+              >
+                Hidden!
+              </NavLink>
+            </li>
+            <li className={styles.nav_item}>
+              <button type="button" onClick={handleLogout}>
+                Logout
+              </button>
+            </li>
+          </>
         )}
       </ul>
     </div>

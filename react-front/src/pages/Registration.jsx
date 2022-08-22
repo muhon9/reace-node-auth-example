@@ -11,7 +11,7 @@ function Registration() {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [localError, setLocalError] = useState('');
 
-  const { logout, loading, error, setError, user } = useContext(AuthContext);
+  const { error, setError, user, registration } = useContext(AuthContext);
 
   const navigate = useNavigate();
 
@@ -24,26 +24,29 @@ function Registration() {
 
   function handleSubmit(e) {
     e.preventDefault();
-
+    setError('');
     if (password !== confirmPassword) {
-      setLocalError("Confirm Password Doesn't match");
+      setError("Confirm Password Doesn't match");
       return;
     }
 
-    axios
-      .post(`${import.meta.env.VITE_API_ROOT}/auth/register`, {
-        name,
-        email,
-        password,
-      })
-      .then((response) => {
-        console.log('response', response);
-        setError('');
-      })
-      .catch((err) => {
-        console.log('Error', err);
-        setError(err.response.data?.message);
-      });
+    registration(name, email, password);
+
+    // axios
+    //   .post(`${import.meta.env.VITE_API_ROOT}/auth/register`, {
+    //     name,
+    //     email,
+    //     password,
+    //   })
+    //   .then((response) => {
+    //     console.log('response', response);
+    //     setError('');
+    //     navigate('/login');
+    //   })
+    //   .catch((err) => {
+    //     console.log('Error', err);
+    //     setError(err.response.data?.message);
+    //   });
   }
 
   return (
@@ -106,7 +109,12 @@ function Registration() {
         </div>
         {error && <p className="error">{error}</p>}
         <div className={styles.button}>
-          <button type="submit">Sign Up</button>
+          <button
+            disabled={!name || !email || !password || !confirmPassword}
+            type="submit"
+          >
+            Sign Up
+          </button>
         </div>
       </form>
       <div className={styles.signup_call}>

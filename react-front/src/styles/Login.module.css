@@ -2,8 +2,8 @@
   display: grid;
   justify-content: center;
   align-items: center;
-  margin-top: 25%;
-  border: 2px solid gray;
+  margin-top: 5%;
+  border: 2px solid brown;
   border-radius: 8px;
   padding-bottom: 10%;
 }
@@ -12,6 +12,7 @@
   padding: 20px 0;
   font-weight: bold;
   text-align: center;
+  font-size: 1.5rem;
 }
 
 .form_fields {
@@ -30,25 +31,48 @@
 }
 
 .form_field label {
-  min-width: 35%;
-  text-align: right;
+  display: grid;
+  align-items: center;
+  min-width: 30%;
   margin: 0 4px;
+  text-align: left;
+  font-size: 1.3rem;
+  font-weight: 500;
+}
+
+.form_field input {
+  min-width: 70%;
+  border: 2px solid brown;
+  padding: 4px;
+  border-radius: 4px;
+  margin: 2px;
+  outline: none;
+  background-color: beige;
 }
 
 .signup_call {
   margin-top: 5%;
+  font-size: 1.2rem;
   padding: 10px 0;
   text-align: center;
-  border: 2px solid gray;
+  border: 2px solid brown;
   border-radius: 8px;
 }
 
 .signup_call a {
+  margin-left: 6px;
   color: brown;
 }
 
 .button {
+  width: 100%;
   margin-top: 6px;
   display: flex;
   justify-content: flex-end;
+}
+
+.button button {
+  padding: 6px 12px;
+  font-size: 1.1rem;
+  cursor: pointer;
 }

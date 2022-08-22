@@ -14,32 +14,34 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  color: var(--fontPrimary);
   font-family: 'Montserrat', sans-serif;
-  font-size: 20px;
 }
 
 body {
+  color: var(--fontPrimary);
   background-color: var(--bodyBackground);
   max-width: 30%;
   margin: 0 auto;
-}
-
-a {
-  text-decoration: none;
-}
-
-h4 {
-  color: #7c83a7;
-  font-weight: 600;
-  border-bottom: 1px solid #e5e5e5;
-  padding: 10px 0;
-  margin-bottom: 10px;
+  font-size: 16px;
 }
 
 button {
   width: 100px;
   padding: 4px 8px;
+}
+
+input {
+  all: unset;
+}
+
+a {
+  color: inherit;
+}
+
+.content {
+  height: 90vh;
+  padding: 1rem 1rem;
+  margin: 0 auto;
 }
 
 .info {
@@ -49,7 +51,6 @@ button {
 
 .error {
   color: red;
-
   border-radius: 8px;
   display: flex;
   align-items: center;
@@ -67,5 +68,17 @@ button {
 @media only screen and (max-width: 1023px) {
   .column {
     grid-template-columns: 1fr;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  body {
+    max-width: 70%;
+  }
+}
+
+@media only screen and (max-width: 640px) {
+  body {
+    max-width: 90%;
   }
 }

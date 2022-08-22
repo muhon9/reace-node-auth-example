@@ -17,19 +17,21 @@ function App() {
       <BrowserRouter>
         <AuthProvider>
           <Navbar />
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route
-              path="/hidden"
-              element={
-                <PrivateRoute>
-                  <Hidden />
-                </PrivateRoute>
-              }
-            />
-            <Route path="/login" element={<Login />} />
-            <Route path="/registration" element={<Registration />} />
-          </Routes>
+          <div className="content">
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route
+                path="/hidden"
+                element={
+                  <PrivateRoute>
+                    <Hidden />
+                  </PrivateRoute>
+                }
+              />
+              <Route path="/login" element={<Login />} />
+              <Route path="/registration" element={<Registration />} />
+            </Routes>
+          </div>
         </AuthProvider>
       </BrowserRouter>
     </div>

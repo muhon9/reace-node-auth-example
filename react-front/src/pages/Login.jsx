@@ -32,7 +32,7 @@ function Login() {
       {!user && (
         <>
           <form className={styles.login_form} onSubmit={handleSubmit}>
-            <div className={styles.form_title}>Login</div>
+            <div className={styles.form_title}>Login Form</div>
             <div className={styles.form_fields}>
               <div className={styles.form_field}>
                 <label htmlFor="email">
@@ -63,11 +63,13 @@ function Login() {
               {error && <p className="error">{error}</p>}
             </div>
             <div className={styles.button}>
-              <button type="submit">Login</button>
+              <button disabled={!email || !password} type="submit">
+                Login
+              </button>
             </div>
           </form>
           <div className={styles.signup_call}>
-            Don't have account?
+            Don't have an account?
             <Link to="/registration">Sign Up</Link>
           </div>
         </>
