@@ -1,10 +1,19 @@
 # REACT NODE Authentication Example
 
+## 🎯 About
+
 A practise project to implement an authentication system where the backend will send two tokens after login.
 
 The challenge was to call refresh-token after the access token is expired without letting the user feel about it
 
 I used Axios instances to implement it
+
+## :rocket: Technologies
+
+:heavy_check_mark:&nbsp; Used Vite to configure React<br/>
+:heavy_check_mark:&nbsp; JWT tokens for authorizations<br/>
+:heavy_check_mark:&nbsp; For backend I used [NODE EXPRESS BOILERPLATE PROJECT](https://github.com/hagopj13/node-express-boilerplate) <br/>
+
 
 ## Quick Start
 
