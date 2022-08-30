@@ -5,9 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "install-dependencies": "npm install && cd node-backend && npm install && cd ../react-front && npm install",
+    "install-dependencies": "npm install && cd react-front && npm install && cd ../node-backend && npm install",
     "client": "cd react-front && npm run dev",
-    "server": "cd node-back && npm run dev",
+    "server": "cd node-backend && npm run dev",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
     "format": "prettier --write \"./**/*.{js,jsx,ts,tsx,css,scss,md}\"",
     "eslint": "eslint src/**/*.{js,jsx}"
