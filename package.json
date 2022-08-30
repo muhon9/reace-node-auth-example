@@ -18,8 +18,6 @@
     "concurrently": "^7.3.0"
   },
   "dependencies": {
-    "@types/mongoose": "^5.11.97",
-    "moment": "^2.29.4",
     "prettier": "^2.7.1"
   }
 }
